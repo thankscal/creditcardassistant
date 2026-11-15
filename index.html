@@ -6,42 +6,32 @@
 <title>信用卡費 確認繳費</title>
 <style>
   :root{
-    --bg:#eef2f7;
-    --card:#ffffff;
-    --line:#e5e7eb;
-    --text:#1f2937;
-    --muted:#6b7280;
-    --blue:#2563eb;
+    --bg:#eef2f7; --card:#fff; --line:#e5e7eb; --text:#1f2937;
+    --muted:#6b7280; --blue:#2563eb;
   }
   *{box-sizing:border-box}
   body{
-    margin:0;
-    padding:28px 16px 90px;
+    margin:0;padding:28px 16px 90px;
     font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,-apple-system,sans-serif;
-    background:var(--bg);
-    color:var(--text);
-    -webkit-font-smoothing:antialiased;
+    background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;
   }
   .wrap{max-width:1040px;margin:0 auto}
   h1{font-size:26px;margin:0 0 6px;text-align:center;letter-spacing:1px}
   .subtitle{text-align:center;color:var(--muted);font-size:13px;margin:0 0 22px}
-
   .card{background:var(--card);border-radius:16px;box-shadow:0 10px 30px rgba(15,23,42,.08);overflow:hidden}
 
-  /* ---------- 工具列 ---------- */
-  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:14px 18px;
-           border-bottom:1px solid var(--line);background:#fbfcfe}
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+           padding:14px 18px;border-bottom:1px solid var(--line);background:#fbfcfe}
   .toolbar .spacer{flex:1}
-  .btn{font-family:inherit;font-size:14px;font-weight:700;border-radius:10px;padding:10px 18px;
-       cursor:pointer;border:1px solid transparent;transition:all .15s}
+  .btn{font-family:inherit;font-size:14px;font-weight:700;border-radius:10px;
+       padding:10px 18px;cursor:pointer;border:1px solid transparent;transition:all .15s}
   .btn-primary{background:var(--blue);color:#fff;box-shadow:0 4px 12px rgba(37,99,235,.3)}
   .btn-primary:hover{background:#1d4ed8}
   .btn-ghost{background:#fff;color:var(--blue);border-color:#c7dbfd}
   .btn-ghost:hover{background:#eff6ff}
 
-  /* ---------- 表格 ---------- */
-  .grid-head,.row{display:grid;grid-template-columns:1.2fr 1.5fr 1.5fr 1.1fr;gap:12px;
-                  align-items:center;padding:12px 18px}
+  .grid-head,.row{display:grid;grid-template-columns:1.25fr 1.15fr 1.15fr 1.1fr;
+                  gap:12px;align-items:center;padding:12px 18px}
   .grid-head{background:#f8fafc;border-bottom:1px solid var(--line);
              font-size:13px;font-weight:700;color:#475569}
   .row{border-bottom:1px solid #f1f4f8}
@@ -49,53 +39,46 @@
   .row:hover{background:#fafcff}
   .cell{min-width:0}
 
-  /* 銀行 */
   .bank-cell{display:flex;align-items:center;gap:8px}
   .bank-name{font-weight:700;font-size:15px}
-  .bank-input{flex:1;min-width:0;padding:8px 10px;border:1px solid #d1d5db;border-radius:8px;
-              font-family:inherit;font-size:14px;color:#111827}
+  .bank-input{flex:1;min-width:0;padding:8px 10px;border:1px solid #d1d5db;
+              border-radius:8px;font-family:inherit;font-size:14px;color:#111827}
   .bank-input:focus{outline:2px solid #bfdbfe;border-color:#93c5fd}
   .del-btn{flex:0 0 auto;border:1px solid #fecaca;background:#fff5f5;color:#dc2626;
-           border-radius:8px;padding:7px 9px;font-size:12px;font-weight:700;cursor:pointer;
-           font-family:inherit;line-height:1}
+           border-radius:8px;padding:7px 9px;font-size:12px;font-weight:700;
+           cursor:pointer;font-family:inherit;line-height:1}
   .del-btn:hover{background:#fee2e2}
 
-  /* 日期 */
   .date-wrap{display:flex;gap:6px;align-items:center}
-  input[type="date"]{
-    flex:1;min-width:0;width:100%;
-    padding:7px 8px;border:1px solid #d1d5db;border-radius:8px;
-    font-size:14px;color:#111827;background:#fff;font-family:inherit;
+  select.day-select{
+    flex:1;min-width:0;width:100%;padding:8px 6px;border:1px solid #d1d5db;
+    border-radius:8px;font-size:14px;color:#111827;background:#fff;
+    font-family:inherit;cursor:pointer;
   }
-  input[type="date"]:focus{outline:2px solid #bfdbfe;border-color:#93c5fd}
+  select.day-select:focus{outline:2px solid #bfdbfe;border-color:#93c5fd}
   .clear-btn{flex:0 0 auto;border:1px solid #d1d5db;background:#f3f4f6;color:#4b5563;
-             padding:7px 10px;border-radius:8px;font-size:13px;font-weight:700;
+             padding:8px 10px;border-radius:8px;font-size:13px;font-weight:700;
              cursor:pointer;font-family:inherit;white-space:nowrap}
   .clear-btn:hover{background:#e5e7eb}
 
-  /* 狀態 */
   .status-label{
-    display:inline-flex;align-items:center;gap:8px;
-    padding:7px 14px 7px 11px;border-radius:999px;
-    font-size:14px;font-weight:700;cursor:pointer;user-select:none;
+    display:inline-flex;align-items:center;gap:8px;padding:7px 14px 7px 11px;
+    border-radius:999px;font-size:14px;font-weight:700;cursor:pointer;user-select:none;
     background:#fee2e2;color:#b91c1c;border:1px solid #fecaca;
     transition:background .18s,color .18s,border-color .18s;
   }
   .status-label.paid{background:#dcfce7;color:#15803d;border-color:#bbf7d0}
   .status-label input[type="checkbox"]{width:16px;height:16px;cursor:pointer;accent-color:#111827}
 
-  /* ---------- 提醒視窗 ---------- */
+  /* 提醒視窗 */
   .modal-overlay{
     position:fixed;inset:0;background:rgba(15,23,42,.55);z-index:100;
-    display:flex;align-items:center;justify-content:center;padding:20px;
-    backdrop-filter:blur(2px);
+    display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(2px);
   }
   .modal-overlay[hidden]{display:none}
-  .modal{
-    background:#fff;border-radius:16px;width:min(480px,100%);max-height:80vh;
-    display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.3);
-    animation:pop .18s ease-out;
-  }
+  .modal{background:#fff;border-radius:16px;width:min(500px,100%);max-height:80vh;
+         display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.3);
+         animation:pop .18s ease-out}
   @keyframes pop{from{transform:scale(.94);opacity:0}to{transform:scale(1);opacity:1}}
   .modal-head{padding:18px 20px;border-bottom:1px solid var(--line);
               display:flex;align-items:center;gap:10px}
@@ -109,13 +92,11 @@
   .rem-info strong{font-size:15px}
   .rem-info span{font-size:12.5px;color:var(--muted)}
   .tag{font-size:12.5px;font-weight:700;padding:5px 11px;border-radius:999px;white-space:nowrap}
-  .tag.overdue{background:#fee2e2;color:#b91c1c}
+  .tag.today{background:#fee2e2;color:#b91c1c}
   .tag.urgent{background:#ffedd5;color:#c2410c}
   .tag.soon{background:#fef3c7;color:#a16207}
-  .modal-foot{padding:14px 20px;border-top:1px solid var(--line);
-              display:flex;justify-content:flex-end}
+  .modal-foot{padding:14px 20px;border-top:1px solid var(--line);display:flex;justify-content:flex-end}
 
-  /* ---------- Toast ---------- */
   .toast{
     position:fixed;left:50%;bottom:32px;transform:translate(-50%,20px);
     background:#111827;color:#fff;padding:11px 24px;border-radius:999px;
@@ -124,7 +105,6 @@
   }
   .toast.show{opacity:1;transform:translate(-50%,0)}
 
-  /* ---------- 手機版 ---------- */
   @media (max-width:760px){
     .grid-head{display:none}
     .row{grid-template-columns:1fr;gap:10px;padding:16px 18px}
@@ -140,7 +120,7 @@
 
 <div class="wrap">
   <h1>信用卡費 確認繳費</h1>
-  <p class="subtitle">勾選即代表已繳費，資料會自動儲存在此瀏覽器</p>
+  <p class="subtitle">結帳日／繳費截止日請選擇「每月幾號」；勾選即代表已繳費，資料自動儲存在此瀏覽器</p>
 
   <div class="card">
     <div class="toolbar">
@@ -151,8 +131,8 @@
 
     <div class="grid-head">
       <div>銀行</div>
-      <div>結帳日</div>
-      <div>繳費截止日</div>
+      <div>結帳日（每月）</div>
+      <div>繳費截止日（每月）</div>
       <div>繳費狀態</div>
     </div>
 
@@ -180,26 +160,24 @@
 (function () {
   'use strict';
 
-  /* ============ 設定 ============ */
-  const STORAGE_KEY = 'ccFeeApp.v1';
-  const REMIND_DAYS = 5;   // 截止日前幾天開始提醒
+  const STORAGE_KEY = 'ccFeeApp.v2';
+  const REMIND_DAYS = 5;
   const FIXED_BANKS = [
     '中國信託', '國泰世華', '台北富邦', '新光銀行',
     '台新銀行', '台灣樂天信用卡', '永豐銀行', '凱基銀行'
   ];
 
-  /* ============ DOM ============ */
-  const listEl   = document.getElementById('list');
-  const addBtn   = document.getElementById('addBtn');
-  const saveBtn  = document.getElementById('saveBtn');
-  const modal    = document.getElementById('reminderModal');
-  const modalList= document.getElementById('reminderList');
-  const closeBtn = document.getElementById('closeReminder');
-  const toastEl  = document.getElementById('toast');
+  const listEl    = document.getElementById('list');
+  const addBtn    = document.getElementById('addBtn');
+  const saveBtn   = document.getElementById('saveBtn');
+  const modal     = document.getElementById('reminderModal');
+  const modalList = document.getElementById('reminderList');
+  const closeBtn  = document.getElementById('closeReminder');
+  const toastEl   = document.getElementById('toast');
 
   let rows = [];
 
-  /* ============ 小工具 ============ */
+  /* ---------- 工具 ---------- */
   function uid() {
     return 'r' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
   }
@@ -208,23 +186,55 @@
       return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
     });
   }
-  function daysUntil(dateStr) {
-    if (!dateStr) return null;
-    const today = new Date(); today.setHours(0, 0, 0, 0);
-    const d = new Date(dateStr + 'T00:00:00');
-    if (isNaN(d.getTime())) return null;
-    return Math.round((d - today) / 86400000);
+  function today0() {
+    const t = new Date();
+    t.setHours(0, 0, 0, 0);
+    return t;
   }
-  function fmtDate(dateStr) {
-    if (!dateStr) return '';
-    const p = dateStr.split('-');
-    return p.length === 3 ? p[0] + '/' + p[1] + '/' + p[2] : dateStr;
+  function daysBetween(target) {
+    return Math.round((target - today0()) / 86400000);
   }
-  function blankRow(name, fixed) {
-    return { id: uid(), name: name, fixed: !!fixed, statement: '', due: '', paid: false };
+  function fmtDate(d) {
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    return y + '/' + m + '/' + dd;
   }
 
-  /* ============ 資料存取 ============ */
+  /* 依「每月幾號」算出下一次（含今天）的截止日；遇月底不足自動取當月最後一天 */
+  function nextDueDate(day) {
+    const n = Number(day);
+    if (!n || n < 1 || n > 31) return null;
+    const t = today0();
+    function make(y, m) {
+      const last = new Date(y, m + 1, 0).getDate();
+      return new Date(y, m, Math.min(n, last));
+    }
+    let d = make(t.getFullYear(), t.getMonth());
+    if (d < t) d = make(t.getFullYear(), t.getMonth() + 1);
+    return d;
+  }
+
+  /* 舊資料相容：可能是 '2026-11-20' 或 20 */
+  function parseDay(v) {
+    if (v == null) return '';
+    const s = String(v).trim();
+    if (!s) return '';
+    let n;
+    if (s.indexOf('-') !== -1) {
+      const p = s.split('-');
+      n = parseInt(p[p.length - 1], 10);
+    } else {
+      n = parseInt(s, 10);
+    }
+    return (n >= 1 && n <= 31) ? n : '';
+  }
+
+  function blankRow(name, fixed) {
+    return { id: uid(), name: name, fixed: !!fixed, statementDay: '', dueDay: '', paid: false };
+  }
+
+  /* ---------- 讀寫 ---------- */
   function load() {
     let saved = null;
     try { saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null'); } catch (e) { saved = null; }
@@ -235,13 +245,12 @@
           id: r.id || uid(),
           name: r.name || '',
           fixed: !!r.fixed,
-          statement: r.statement || '',
-          due: r.due || '',
+          statementDay: parseDay(r.statementDay != null ? r.statementDay : r.statement),
+          dueDay:       parseDay(r.dueDay       != null ? r.dueDay       : r.due),
           paid: !!r.paid
         };
       });
 
-      // 確保 8 家固定銀行一定存在，且排在最前面
       const byName = new Map();
       rows.forEach(function (r) { if (!byName.has(r.name)) byName.set(r.name, r); });
 
@@ -261,7 +270,16 @@
     catch (e) { console.warn('儲存失敗', e); }
   }
 
-  /* ============ 畫面渲染 ============ */
+  /* ---------- 渲染 ---------- */
+  function dayOptions(selected) {
+    let h = '<option value="">請選擇</option>';
+    const sel = Number(selected);
+    for (let i = 1; i <= 31; i++) {
+      h += '<option value="' + i + '"' + (sel === i ? ' selected' : '') + '>' + i + ' 日</option>';
+    }
+    return h;
+  }
+
   function rowHTML(r) {
     const paidClass = r.paid ? 'paid' : '';
     const statusTxt = r.paid ? '已繳費' : '未繳費';
@@ -275,17 +293,17 @@
       + '<div class="row" data-id="' + r.id + '">'
       +   '<div class="cell bank-cell" data-label="銀行">' + bankPart + '</div>'
 
-      +   '<div class="cell" data-label="結帳日">'
+      +   '<div class="cell" data-label="結帳日（每月）">'
       +     '<div class="date-wrap">'
-      +       '<input type="date" class="date-input" data-field="statement" value="' + (r.statement || '') + '">'
-      +       '<button type="button" class="clear-btn" data-field="statement">清除</button>'
+      +       '<select class="day-select" data-field="statementDay">' + dayOptions(r.statementDay) + '</select>'
+      +       '<button type="button" class="clear-btn" data-field="statementDay">清除</button>'
       +     '</div>'
       +   '</div>'
 
-      +   '<div class="cell" data-label="繳費截止日">'
+      +   '<div class="cell" data-label="繳費截止日（每月）">'
       +     '<div class="date-wrap">'
-      +       '<input type="date" class="date-input" data-field="due" value="' + (r.due || '') + '">'
-      +       '<button type="button" class="clear-btn" data-field="due">清除</button>'
+      +       '<select class="day-select" data-field="dueDay">' + dayOptions(r.dueDay) + '</select>'
+      +       '<button type="button" class="clear-btn" data-field="dueDay">清除</button>'
       +     '</div>'
       +   '</div>'
 
@@ -298,9 +316,7 @@
       + '</div>';
   }
 
-  function render() {
-    listEl.innerHTML = rows.map(rowHTML).join('');
-  }
+  function render() { listEl.innerHTML = rows.map(rowHTML).join(''); }
 
   function findRow(el) {
     const rowEl = el.closest('.row');
@@ -309,48 +325,41 @@
     return data ? { rowEl: rowEl, data: data } : null;
   }
 
-  /* ============ 事件：輸入日期 / 銀行名稱 ============ */
-  listEl.addEventListener('input', function (e) {
+  /* ---------- 事件 ---------- */
+  listEl.addEventListener('change', function (e) {
     const found = findRow(e.target);
     if (!found) return;
-    const data = found.data;
 
-    if (e.target.classList.contains('date-input')) {
-      data[e.target.dataset.field] = e.target.value;
-    } else if (e.target.classList.contains('bank-input')) {
-      data.name = e.target.value;
+    if (e.target.classList.contains('day-select')) {
+      found.data[e.target.dataset.field] = e.target.value;
+      return;
+    }
+    if (e.target.classList.contains('paid-check')) {
+      found.data.paid = e.target.checked;
+      const label = e.target.closest('.status-label');
+      label.classList.toggle('paid', found.data.paid);
+      label.querySelector('.status-text').textContent = found.data.paid ? '已繳費' : '未繳費';
     }
   });
 
-  /* ============ 事件：勾選已繳費 ============ */
-  listEl.addEventListener('change', function (e) {
-    if (!e.target.classList.contains('paid-check')) return;
+  listEl.addEventListener('input', function (e) {
     const found = findRow(e.target);
     if (!found) return;
-
-    found.data.paid = e.target.checked;
-
-    const label = e.target.closest('.status-label');
-    const txt   = label.querySelector('.status-text');
-    label.classList.toggle('paid', found.data.paid);
-    txt.textContent = found.data.paid ? '已繳費' : '未繳費';
+    if (e.target.classList.contains('bank-input')) found.data.name = e.target.value;
   });
 
-  /* ============ 事件：清除 / 刪除 ============ */
   listEl.addEventListener('click', function (e) {
-    // 清除日期
     const clearBtn = e.target.closest('.clear-btn');
     if (clearBtn) {
       const found = findRow(clearBtn);
       if (!found) return;
       const field = clearBtn.dataset.field;
       found.data[field] = '';
-      const input = found.rowEl.querySelector('.date-input[data-field="' + field + '"]');
-      if (input) input.value = '';
+      const sel = found.rowEl.querySelector('.day-select[data-field="' + field + '"]');
+      if (sel) sel.value = '';
       return;
     }
 
-    // 刪除自訂銀行
     const delBtn = e.target.closest('.del-btn');
     if (delBtn) {
       const found = findRow(delBtn);
@@ -363,19 +372,16 @@
     }
   });
 
-  /* ============ 新增銀行 ============ */
   addBtn.addEventListener('click', function () {
     const r = blankRow('', false);
     rows.push(r);
     listEl.insertAdjacentHTML('beforeend', rowHTML(r));
-
     const lastRow = listEl.lastElementChild;
     const input = lastRow.querySelector('.bank-input');
     if (input) input.focus();
     if (lastRow.scrollIntoView) lastRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
   });
 
-  /* ============ 儲存 ============ */
   saveBtn.addEventListener('click', function () {
     save();
     showToast('已儲存 ✓');
@@ -389,37 +395,37 @@
     showToast._t = setTimeout(function () { toastEl.classList.remove('show'); }, 1800);
   }
 
-  /* ============ 到期提醒 ============ */
+  /* ---------- 到期提醒 ---------- */
   function checkReminders() {
     const list = [];
 
     rows.forEach(function (r) {
-      if (r.paid || !r.due) return;
-      const d = daysUntil(r.due);
-      if (d === null) return;
-      if (d <= REMIND_DAYS) {
-        list.push({ name: r.name || '（未命名銀行）', due: r.due, days: d });
+      if (r.paid || !r.dueDay) return;
+      const d = nextDueDate(r.dueDay);
+      if (!d) return;
+      const days = daysBetween(d);
+      if (days <= REMIND_DAYS) {
+        list.push({
+          name: r.name || '（未命名銀行）',
+          dueDay: Number(r.dueDay),
+          date: fmtDate(d),
+          days: days
+        });
       }
     });
 
     if (!list.length) return;
-
     list.sort(function (a, b) { return a.days - b.days; });
 
     modalList.innerHTML = list.map(function (item) {
       let tag, cls;
-      if (item.days < 0) {
-        tag = '已逾期 ' + (-item.days) + ' 天'; cls = 'overdue';
-      } else if (item.days === 0) {
-        tag = '今天截止'; cls = 'urgent';
-      } else {
-        tag = '剩 ' + item.days + ' 天'; cls = 'soon';
-      }
+      if (item.days === 0) { tag = '今天截止'; cls = 'today'; }
+      else                 { tag = '剩 ' + item.days + ' 天'; cls = item.days <= 2 ? 'urgent' : 'soon'; }
       return ''
         + '<li>'
         +   '<div class="rem-info">'
         +     '<strong>' + esc(item.name) + '</strong>'
-        +     '<span>繳費截止日：' + fmtDate(item.due) + '</span>'
+        +     '<span>繳費截止日：每月 ' + item.dueDay + ' 日　·　下次截止 ' + item.date + '</span>'
         +   '</div>'
         +   '<span class="tag ' + cls + '">' + tag + '</span>'
         + '</li>';
@@ -429,14 +435,13 @@
   }
 
   function closeModal() { modal.hidden = true; }
-
   closeBtn.addEventListener('click', closeModal);
   modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && !modal.hidden) closeModal();
   });
 
-  /* ============ 啟動 ============ */
+  /* ---------- 啟動 ---------- */
   load();
   render();
   checkReminders();
